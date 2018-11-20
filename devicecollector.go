@@ -325,7 +325,7 @@ func (c *DeviceCollector) collectDeviceStations(ch chan<- prometheus.Metric, sit
 			d.Name,
 		}
 
-		numberStations = len(d.Radios)
+		numberStations := len(d.Radios)
 
 		for _, r := range d.Radios {
 			// Since the radio name and type will be different for each
