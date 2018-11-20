@@ -325,6 +325,8 @@ func (c *DeviceCollector) collectDeviceStations(ch chan<- prometheus.Metric, sit
 			d.Name,
 		}
 
+		numberStations = len(d.Radios)
+
 		for _, r := range d.Radios {
 			// Since the radio name and type will be different for each
 			// radio, we copy the original labels slice and append, to avoid
@@ -336,21 +338,21 @@ func (c *DeviceCollector) collectDeviceStations(ch chan<- prometheus.Metric, sit
 			ch <- prometheus.MustNewConstMetric(
 				c.Stations,
 				prometheus.GaugeValue,
-				float64(*r.Stats.NumberStations),
+				float64(numberStations),
 				llabels...,
 			)
-			ch <- prometheus.MustNewConstMetric(
-				c.UserStations,
-				prometheus.GaugeValue,
-				float64(r.Stats.NumberUserStations),
-				llabels...,
-			)
-			ch <- prometheus.MustNewConstMetric(
-				c.GuestStations,
-				prometheus.GaugeValue,
-				float64(r.Stats.NumberGuestStations),
-				llabels...,
-			)
+			//ch <- prometheus.MustNewConstMetric(
+			//	c.UserStations,
+			//	prometheus.GaugeValue,
+			//	float64(r.Stats.NumberUserStations),
+			//	llabels...,
+			//)
+			//ch <- prometheus.MustNewConstMetric(
+			//	c.GuestStations,
+			//	prometheus.GaugeValue,
+			//	float64(r.Stats.NumberGuestStations),
+			//	llabels...,
+			//)
 		}
 	}
 }
