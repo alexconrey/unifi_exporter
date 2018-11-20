@@ -333,6 +333,8 @@ func (c *DeviceCollector) collectDeviceStations(ch chan<- prometheus.Metric, sit
 			copy(llabels, labels)
 			llabels = append(llabels, r.Name, r.Radio)
 
+			log.Println(r.Stats.NumberStations)
+
 			ch <- prometheus.MustNewConstMetric(
 				c.Stations,
 				prometheus.GaugeValue,
